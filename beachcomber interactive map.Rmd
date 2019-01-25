@@ -1,0 +1,39 @@
+---
+title: "Interactive maps with leaflet"
+author: "Boodeo Nem"
+date: "1/24/2019"
+output:
+  ioslides_presentation: default
+  powerpoint_presentation: default
+---
+## Creating Interative Maps with leaflet
+
+This assignment uses the maps of Mauritius island, which is located in the Indian Ocean, to highlight some of the best hotels in the country from one of the Hotel holding companies, Beachcomber Hotels. The group has 9 hotels in total, out of which 5 are highly rated. This map will show these 5 hotels on the map of Mauritius and will also include markers (corporate icon) and the respective web addresses as popups.
+
+## Date: 25 January 2019
+```{r,echo=FALSE}
+library(leaflet)
+set.seed(233)
+beachcomber_hotels_icon <- makeIcon(
+         iconUrl = "https://cdn.beachcomber-hotels.com/v8.beachcomber-hotels/img/main_slider/corporate/slider.jpg",
+         iconWidth = 31*215/230, iconHeight = 31, 
+         iconAnchorX = 21*215/230/2, iconAnchorY = 16
+)
+beachcomberLatLong <- data.frame(
+         lat = c(-20.0061, -20.4491, -20.4487, -20.0756, -20.0008), 
+         lng = c(57.5785, 57.3151, 57.7066, 57.5127, 57.5527))         
+
+beachcomber_hotels <- c(
+         "<a href='https://www.beachcomber-hotels.com/en/hotel/royal-palm-luxury/'>Royal Palm Beachcomber Luxury</a>",
+         "<a href='https://www.beachcomber-hotels.com/en/hotel/dinarobin-golf-resort-spa/'>Dinarobin Beachcomber Resort & Spa</a>",
+         "<a href='https://www.beachcomber-hotels.com/en/hotel/shandrani-resort-spa/'>Shandrani Beachcomber Resort & Spa</a>",
+         "<a href='https://www.beachcomber-hotels.com/en/hotel/victoria-resort-spa/'>Victoria Beachcomber Resort & Spa</a>",
+         "<a href='https://www.beachcomber-hotels.com/en/hotel/canonnier-golf-resort-spa/'>Cannonier Beachcomber Resort & Spa</a>"
+)
+
+beachcomberLatLong %>%
+         leaflet() %>%
+         addTiles() %>% 
+         addMarkers(icon = beachcomber_hotels_icon, popup = beachcomber_hotels, 
+                    clusterOptions = markerClusterOptions())
+```
